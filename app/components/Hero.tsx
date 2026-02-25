@@ -99,8 +99,8 @@ export default function Hero() {
                 Proof of Work
               </a>
               <a
-                href="/Rishi-Bathija-Resume.pdf"
-                download
+                href="/Rishi%20Bhatija%20Resume.pdf"
+                download="Rishi-Bhatija-Resume.pdf"
                 className="rounded-2xl border border-card-border bg-card px-8 py-3.5 font-mono text-sm font-medium text-text-secondary transition-all hover:border-white/10 hover:text-foreground hover:shadow-[0_0_24px_rgba(59,130,246,0.1)]"
                 data-cursor-hover
               >

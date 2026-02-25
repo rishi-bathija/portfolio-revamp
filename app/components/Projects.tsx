@@ -102,8 +102,8 @@ function HighlightedCode({ code }: { code: string }) {
 const PROJECTS: ProjectItem[] = [
   {
     name: "Moviesflix",
-    github: "#",
-    live: "#",
+    github: "https://github.com/rishi-bathija/moviesflix",
+    live: "https://moviesflix-frontend.vercel.app",
     metricStrip: "AI: Gemini API · Personalization · Behavior Tracking",
     description:
       "AI-powered movie discovery platform focused on personalized content exploration. Integrated Gemini API for intelligent movie search and recommendations. Built a personalized Explore page using user interaction signals such as likes, dislikes, watchlist activity, and news engagement. Implemented saved AI search history, entertainment news integration, infinite scrolling using Redux Toolkit, and backend services for authentication and behaviour tracking.",
@@ -118,16 +118,16 @@ const PROJECTS: ProjectItem[] = [
     codeRaw: `// Moviesflix: cached insights + Gemini fallback to heuristics
   const cached = await Insight.findOne({ firebaseUid });
   if (cached && Date.now() - cached.lastComputed < 30 * 60 * 1000)
-  return res.status(200).json({ success: true, insights: cached, fromCache: true });
+    return res.status(200).json({ success: true, insights: cached, fromCache: true });
   
   const profile = await aggregateUserProfile(user, firebaseUid);
   const aiInsights = hasEnoughData(profile)
-  ? await geminiClient.generateInsights(profile).catch(() => generateHeuristicInsights(profile))
-  : generateHeuristicInsights(profile);
+    ? await geminiClient.generateInsights(profile).catch(() => generateHeuristicInsights(profile))
+    : generateHeuristicInsights(profile);
   
   const insights = {
-  ...aiInsights, metrics: profile.metrics, topGenres: profile.topGenres, newsEngagement: profile.newsEngagement,
-  recommendations: (aiInsights.recommendations || []).map(r => ({ itemType: r.itemType || r.type || "movie", id: String(r.id || ""), title: r.title || "Unknown", reason: r.reason || "", posterPath: r.posterPath || "" }))
+    ...aiInsights, metrics: profile.metrics, topGenres: profile.topGenres, newsEngagement: profile.newsEngagement,
+    recommendations: (aiInsights.recommendations || []).map(r => ({ itemType: r.itemType || r.type || "movie", id: String(r.id || ""), title: r.title || "Unknown", reason: r.reason || "", posterPath: r.posterPath || "" }))
   };
   
   await Insight.findOneAndUpdate({ firebaseUid }, { ...insights, userId: user._id, lastComputed: new Date() }, { upsert: true, new: true });
@@ -249,8 +249,8 @@ const PROJECTS: ProjectItem[] = [
   },
   {
     name: "Studynotion",
-    github: "#",
-    live: "#",
+    github: "https://github.com/rishi-bathija/studynotion",
+    live: "https://studynotion-frontend-blond.vercel.app",
     metricStrip: "Auth: JWT · Payments: Razorpay",
     description:
       "Full-stack EdTech learning platform supporting instructors and students with secure role-based access. Implemented JWT authentication, Razorpay payments, and Cloudinary media management. Designed scalable backend APIs and frontend workflows for course consumption and delivery.",
@@ -395,8 +395,8 @@ return res.status(200).json({ success: true, message: "Payment verified, enrollm
   },
   {
     name: "Revisitly",
-    github: "#",
-    live: "#",
+    github: "https://github.com/rishi-bathija/revisitly-frontend",
+    live: "https://revisitly-frontend.vercel.app",
     metricStrip: "Auth: Firebase · Background Jobs: Cron",
     description:
       "Full-stack bookmark reminder platform enabling users to save links and schedule automated email reminders. Built responsive dashboard for bookmarks, tags, and reminder timelines. Implemented repeat reminders, smart follow-ups, and remind-again workflows. Integrated Firebase authentication and background jobs for reliable scheduling.",
@@ -405,19 +405,19 @@ return res.status(200).json({ success: true, message: "Payment verified, enrollm
     codeRaw: `// Revisitly: due-reminder processor with signed action links + smart follow-ups
   const now = new Date();
   const due = await Bookmark.find({
-  $or: [{ remindAt: { $lte: now }, reminded: false }, { "smartFollowUp.enabled": true, "smartFollowUp.followUpScheduled": { $lte: now }, "smartFollowUp.followUpSent": false }]
+    $or: [{ remindAt: { $lte: now }, reminded: false }, { "smartFollowUp.enabled": true, "smartFollowUp.followUpScheduled": { $lte: now }, "smartFollowUp.followUpSent": false }]
   }).populate("user");
   
   for (const b of due) {
-  const remindToken = jwt.sign({ action: "REMIND", bookmarkId: b._id, userId: b.user._id }, process.env.REMINDER_TOKEN_SECRET, { expiresIn: "24h" });
-  const stopToken = jwt.sign({ action: "STOP", bookmarkId: b._id, userId: b.user._id }, process.env.REMINDER_TOKEN_SECRET, { expiresIn: "24h" });
-  const trackingLink = \`\${frontendUrl}/track/\${b._id}?redirect=\${encodeURIComponent(b.url)}\`;
-  
-  await sendEmail({ to: b.user.email, subject: \`Reminder: \${b.title || "Your bookmark"}\`, html: emailTemplate(b.user, b, trackingLink, \`\${frontendUrl}/remind/\${remindToken}\`, \`\${frontendUrl}/remind/\${stopToken}\`, frontendUrl, false) });
-  b.reminded = true;
-  if (b.smartFollowUp.enabled && !b.smartFollowUp.followUpScheduled) b.smartFollowUp.followUpScheduled = new Date(now.getTime() + b.smartFollowUp.daysDelay * 24 * 60 * 60 * 1000);
-  await scheduleNextReminder(b); // handles daily/weekly recurrence
-  await b.save();
+    const remindToken = jwt.sign({ action: "REMIND", bookmarkId: b._id, userId: b.user._id }, process.env.REMINDER_TOKEN_SECRET, { expiresIn: "24h" });
+    const stopToken = jwt.sign({ action: "STOP", bookmarkId: b._id, userId: b.user._id }, process.env.REMINDER_TOKEN_SECRET, { expiresIn: "24h" });
+    const trackingLink = \`\${frontendUrl}/track/\${b._id}?redirect=\${encodeURIComponent(b.url)}\`;
+    
+    await sendEmail({ to: b.user.email, subject: \`Reminder: \${b.title || "Your bookmark"}\`, html: emailTemplate(b.user, b, trackingLink, \`\${frontendUrl}/remind/\${remindToken}\`, \`\${frontendUrl}/remind/\${stopToken}\`, frontendUrl, false) });
+    b.reminded = true;
+    if (b.smartFollowUp.enabled && !b.smartFollowUp.followUpScheduled) b.smartFollowUp.followUpScheduled = new Date(now.getTime() + b.smartFollowUp.daysDelay * 24 * 60 * 60 * 1000);
+    await scheduleNextReminder(b); // handles daily/weekly recurrence
+    await b.save();
   }`,
     codeSnippet: (
       <pre className="font-mono text-[10px] leading-relaxed whitespace-pre break-none">
@@ -566,7 +566,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
         borderColor: "rgba(59,130,246,0.2)",
         transition: hoverSpring,
       }}
-      className="group overflow-hidden rounded-2xl border border-card-border bg-card"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-card-border bg-card"
       aria-labelledby={`project-${project.name.replace(/\s+/g, "-")}`}
     >
       <div className="flex flex-col p-6">
@@ -582,6 +582,8 @@ function ProjectCard({ project }: { project: ProjectItem }) {
             {project.github && (
               <a
                 href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="rounded-lg p-2 text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
                 aria-label={`View ${project.name} on GitHub`}
                 data-cursor-hover
@@ -592,6 +594,8 @@ function ProjectCard({ project }: { project: ProjectItem }) {
             {project.live && (
               <a
                 href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="rounded-lg p-2 text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
                 data-cursor-hover
                 aria-label={`View ${project.name} live`}
@@ -627,7 +631,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
 
       {/* Code Preview - VS Code style window */}
       <m.div
-        className="relative flex min-h-[280px] flex-col overflow-hidden border-t border-card-border bg-background"
+        className="relative flex min-h-[280px] flex-1 flex-col overflow-hidden border-t border-card-border bg-background"
         initial={false}
         style={{
           boxShadow: `inset 0 0 0 0.5px ${project.codeAccent}20`,
