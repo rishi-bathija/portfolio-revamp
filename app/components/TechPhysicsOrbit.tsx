@@ -119,8 +119,8 @@ function ConstellationLines() {
     >
       <defs>
         <linearGradient id="line-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="rgba(59,130,246,0.15)" />
-          <stop offset="100%" stopColor="rgba(59,130,246,0.03)" />
+          <stop offset="0%" stopColor="rgba(59,130,246,0.5)" />
+          <stop offset="100%" stopColor="rgba(59,130,246,0.2)" />
         </linearGradient>
       </defs>
       {CONNECTIONS.map(([a, b], i) => (
@@ -132,12 +132,12 @@ function ConstellationLines() {
           y2={`${CHIPS[b].cy}%`}
           stroke="url(#line-grad)"
           strokeWidth="1"
-          strokeDasharray="4 4"
+          strokeDasharray="6 4"
         >
           <animate
             attributeName="stroke-dashoffset"
             from="0"
-            to="24"
+            to="30"
             dur={`${3 + i * 0.3}s`}
             repeatCount="indefinite"
           />
@@ -154,16 +154,16 @@ function AmbientParticles() {
       {PARTICLES.map((p) => (
         <m.div
           key={p.id}
-          className="absolute rounded-full bg-accent/20"
+          className="absolute rounded-full bg-accent"
           style={{
-            width: p.size,
-            height: p.size,
+            width: p.size + 1,
+            height: p.size + 1,
             left: `${p.x}%`,
             top: `${p.y}%`,
           }}
           animate={{
-            y: [0, -20, 0],
-            opacity: [0, 0.6, 0],
+            y: [0, -30, 0],
+            opacity: [0, 0.8, 0],
           }}
           transition={{
             duration: p.duration,
@@ -186,20 +186,20 @@ function CenterNode() {
     >
       {/* outer pulse ring */}
       <m.div
-        className="absolute -inset-6 rounded-full border border-accent/10"
-        animate={{ scale: [1, 1.6, 1], opacity: [0.4, 0, 0.4] }}
+        className="absolute -inset-10 rounded-full border-2 border-accent/30"
+        animate={{ scale: [1, 1.8, 1], opacity: [0.6, 0, 0.6] }}
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
       />
       {/* middle pulse ring */}
       <m.div
-        className="absolute -inset-3 rounded-full border border-accent/15"
-        animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0.1, 0.5] }}
+        className="absolute -inset-5 rounded-full border border-accent/40"
+        animate={{ scale: [1, 1.4, 1], opacity: [0.7, 0.1, 0.7] }}
         transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
       />
-      {/* glow */}
+      {/* core glow */}
       <div
-        className="h-3 w-3 rounded-full bg-accent/40"
-        style={{ boxShadow: "0 0 20px rgba(59,130,246,0.4), 0 0 40px rgba(59,130,246,0.15)" }}
+        className="h-4 w-4 rounded-full bg-accent/80"
+        style={{ boxShadow: "0 0 24px rgba(59,130,246,0.7), 0 0 60px rgba(59,130,246,0.3)" }}
       />
     </div>
   );
@@ -209,7 +209,7 @@ function CenterNode() {
 function ScanLine() {
   return (
     <m.div
-      className="pointer-events-none absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/15 to-transparent"
+      className="pointer-events-none absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent"
       animate={{ top: ["0%", "100%", "0%"] }}
       transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
       aria-hidden
@@ -240,7 +240,7 @@ export default function TechPhysicsOrbit() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(circle at 50% 50%, rgba(59,130,246,0.04) 0%, transparent 60%)",
+            "radial-gradient(circle at 50% 50%, rgba(59,130,246,0.12) 0%, transparent 65%)",
         }}
         aria-hidden
       />
@@ -277,9 +277,9 @@ export default function TechPhysicsOrbit() {
 
       {/* Drag hint */}
       <m.div
-        className="absolute bottom-4 right-4 z-20 font-mono text-[10px] text-subtle"
-        animate={{ opacity: [0.3, 0.6, 0.3] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-4 right-4 z-20 font-mono text-xs text-muted-foreground"
+        animate={{ opacity: [0.5, 1, 0.5] }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
         aria-hidden
       >
         drag the chips
