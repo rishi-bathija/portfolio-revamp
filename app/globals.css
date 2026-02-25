@@ -4,14 +4,14 @@
   --background: #050505;
   --foreground: #fafafa;
   --muted-foreground: #a1a1a1;
-  --card: #0a0a0a;
-  --card-border: #1a1a1a;
+  --card: #101113;
+  --card-border: rgba(255, 255, 255, 0.1);
   --accent: #3b82f6;
   --accent-green: #22c55e;
   --subtle: #666;
   --text-secondary: #e5e5e5;
   --text-tertiary: #b8b8b8;
-  --surface: #111;
+  --surface: #15161a;
   --radius: 1rem;
 }
 
