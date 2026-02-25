@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import {
   Code2,
   Server,
@@ -29,16 +29,9 @@ const ENGINE_ITEMS = [
   "Firebase",
 ];
 
-interface MicroChipProps {
-  label: string;
-}
-
-function MicroChip({ label }: MicroChipProps) {
+function MicroChip({ label }: { label: string }) {
   return (
-    <span
-      className="rounded-md border border-white/5 bg-[#111] px-2 py-1 font-mono text-[10px] text-[#e5e5e5]"
-      aria-hidden
-    >
+    <span className="rounded-md border border-white/5 bg-surface px-2 py-1 font-mono text-[10px] text-text-secondary">
       {label}
     </span>
   );
@@ -48,36 +41,37 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
+    transition: { staggerChildren: 0.08 },
   },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 20,
-      mass: 1,
-    },
+    transition: { type: "spring", stiffness: 80, damping: 18, mass: 0.8 },
   },
 };
 
-const hoverTransition = {
-  type: "spring" as const,
-  stiffness: 300,
-  damping: 20,
-};
+function CardTopLine() {
+  return (
+    <div
+      className="absolute left-0 right-0 top-0"
+      style={{
+        height: "0.5px",
+        background:
+          "linear-gradient(to right, transparent, rgba(255,255,255,0.08), transparent)",
+      }}
+      aria-hidden
+    />
+  );
+}
 
 export default function AboutSkills() {
   return (
     <section
-      className="px-6 py-14 md:px-12 md:py-16 lg:px-24"
+      className="px-6 py-20 md:px-12 lg:px-24"
       aria-labelledby="about-skills-heading"
     >
       <h2
@@ -87,62 +81,41 @@ export default function AboutSkills() {
         System.Architect(Rishi)
       </h2>
 
-      <motion.div
+      <m.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true }}
-        className="grid grid-cols-1 gap-4 md:grid-cols-3 md:grid-rows-auto"
+        viewport={{ once: true, amount: 0.15 }}
+        className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3"
       >
         {/* Card 1 - Bio (span 2 cols) */}
-        <motion.article
+        <m.article
           variants={cardVariants}
-          whileHover={{ y: -5, scale: 1.01, transition: hoverTransition }}
-          className="relative flex flex-col gap-4 overflow-hidden rounded-2xl border border-[#1a1a1a] bg-[#0a0a0a] p-6 md:col-span-2"
+          whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+          className="relative flex flex-col gap-4 overflow-hidden rounded-2xl border border-card-border bg-card p-6 sm:col-span-2"
         >
-          <div
-            className="absolute left-0 right-0 top-0"
-            style={{
-              height: "0.5px",
-              background:
-                "linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent)",
-            }}
-            aria-hidden
-          />
+          <CardTopLine />
           <div className="flex items-center gap-2">
-            <Code2 className="h-5 w-5 text-[#3b82f6]" aria-hidden />
-            <h3 className="font-mono text-xs uppercase tracking-wider text-[#666]">
+            <Code2 className="h-5 w-5 text-accent" aria-hidden />
+            <h3 className="font-mono text-xs uppercase tracking-wider text-subtle">
               Bio
             </h3>
           </div>
-          <p className="font-sans text-[#e5e5e5] leading-relaxed">
-            Full-stack engineer experienced in building scalable features across SaaS platforms, industry projects, dashboards, admin-panels used by real users.
-
-            Worked closely with teams to deliver features end-to-end —
-            from UI implementation and API to deployment.
-
-            Always focused on writing maintainable code and improving user experience.
+          <p className="font-sans leading-relaxed text-text-secondary">
+            Full-stack engineer experienced in building scalable features across SaaS platforms, industry projects, dashboards, and admin-panels used by real users. Worked closely with teams to deliver features end-to-end -- from UI implementation and API to deployment. Always focused on writing maintainable code and improving user experience.
           </p>
-        </motion.article>
+        </m.article>
 
         {/* Card 2 - Stack */}
-        <motion.article
+        <m.article
           variants={cardVariants}
-          whileHover={{ y: -5, scale: 1.01, transition: hoverTransition }}
-          className="relative flex flex-col gap-4 overflow-hidden rounded-2xl border border-[#1a1a1a] bg-[#0a0a0a] p-6"
+          whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+          className="relative flex flex-col gap-4 overflow-hidden rounded-2xl border border-card-border bg-card p-6"
         >
-          <div
-            className="absolute left-0 right-0 top-0"
-            style={{
-              height: "0.5px",
-              background:
-                "linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent)",
-            }}
-            aria-hidden
-          />
+          <CardTopLine />
           <div className="flex items-center gap-2">
-            <Cpu className="h-5 w-5 text-[#3b82f6]" aria-hidden />
-            <h3 className="font-mono text-xs uppercase tracking-wider text-[#666]">
+            <Cpu className="h-5 w-5 text-accent" aria-hidden />
+            <h3 className="font-mono text-xs uppercase tracking-wider text-subtle">
               Stack
             </h3>
           </div>
@@ -151,26 +124,18 @@ export default function AboutSkills() {
               <MicroChip key={item} label={item} />
             ))}
           </div>
-        </motion.article>
+        </m.article>
 
         {/* Card 3 - Engine */}
-        <motion.article
+        <m.article
           variants={cardVariants}
-          whileHover={{ y: -5, scale: 1.01, transition: hoverTransition }}
-          className="relative flex flex-col gap-4 overflow-hidden rounded-2xl border border-[#1a1a1a] bg-[#0a0a0a] p-6 md:col-span-1"
+          whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+          className="relative flex flex-col gap-4 overflow-hidden rounded-2xl border border-card-border bg-card p-6"
         >
-          <div
-            className="absolute left-0 right-0 top-0"
-            style={{
-              height: "0.5px",
-              background:
-                "linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent)",
-            }}
-            aria-hidden
-          />
+          <CardTopLine />
           <div className="flex items-center gap-2">
-            <Server className="h-5 w-5 text-[#3b82f6]" aria-hidden />
-            <h3 className="font-mono text-xs uppercase tracking-wider text-[#666]">
+            <Server className="h-5 w-5 text-accent" aria-hidden />
+            <h3 className="font-mono text-xs uppercase tracking-wider text-subtle">
               Engine
             </h3>
           </div>
@@ -179,35 +144,26 @@ export default function AboutSkills() {
               <MicroChip key={item} label={item} />
             ))}
           </div>
-        </motion.article>
+        </m.article>
 
-        {/* Card 4 - Pulse (square on md+) */}
-        <motion.article
+        {/* Card 4 - Pulse */}
+        <m.article
           variants={cardVariants}
-          whileHover={{ y: -5, scale: 1.01, transition: hoverTransition }}
-          className="relative flex flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl border border-[#1a1a1a] bg-[#0a0a0a] p-6 md:aspect-square"
+          whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+          className="relative flex flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl border border-card-border bg-card p-6"
         >
-          <div
-            className="absolute left-0 right-0 top-0"
-            style={{
-              height: "0.5px",
-              background:
-                "linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent)",
-            }}
-            aria-hidden
-          />
+          <CardTopLine />
           <Activity
-            className="h-8 w-8 animate-pulse text-[#22c55e]"
-            style={{ filter: "drop-shadow(0 0 10px #22c55e)" }}
+            className="h-8 w-8 animate-pulse text-accent-green"
+            style={{ filter: "drop-shadow(0 0 10px var(--accent-green))" }}
             aria-hidden
           />
-          <span className="font-mono text-xs text-[#22c55e]">Available</span>
+          <span className="font-mono text-xs text-accent-green">Available</span>
           <div
-            className="h-2 w-2 rounded-full bg-[#22c55e] animate-pulse"
-            style={{ boxShadow: "0 0 10px #22c55e" }}
+            className="h-2 w-2 rounded-full bg-accent-green animate-pulse"
+            style={{ boxShadow: "0 0 10px var(--accent-green)" }}
             aria-hidden
           />
-          {/* Mini line chart - real-time feel */}
           <svg
             className="mt-2 h-8 w-16 opacity-60"
             viewBox="0 0 64 32"
@@ -216,34 +172,26 @@ export default function AboutSkills() {
           >
             <polyline
               points="0,24 8,20 16,22 24,16 32,18 40,10 48,14 56,8 64,12"
-              stroke="#22c55e"
+              stroke="var(--accent-green)"
               strokeWidth="1"
               fill="none"
             />
           </svg>
-          <span className="font-mono text-[10px] text-[#666]">
+          <span className="font-mono text-[10px] text-subtle">
             Location: Ahmedabad
           </span>
-        </motion.article>
+        </m.article>
 
-        {/* Card 5 - Toolkit (square on md+) */}
-        <motion.article
+        {/* Card 5 - Toolkit */}
+        <m.article
           variants={cardVariants}
-          whileHover={{ y: -5, scale: 1.01, transition: hoverTransition }}
-          className="relative flex flex-col gap-4 overflow-hidden rounded-2xl border border-[#1a1a1a] bg-[#0a0a0a] p-6 md:aspect-square"
+          whileHover={{ y: -4, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+          className="relative flex flex-col gap-4 overflow-hidden rounded-2xl border border-card-border bg-card p-6"
         >
-          <div
-            className="absolute left-0 right-0 top-0"
-            style={{
-              height: "0.5px",
-              background:
-                "linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent)",
-            }}
-            aria-hidden
-          />
+          <CardTopLine />
           <div className="flex items-center gap-2">
-            <Wrench className="h-5 w-5 text-[#3b82f6]" aria-hidden />
-            <h3 className="font-mono text-xs uppercase tracking-wider text-[#666]">
+            <Wrench className="h-5 w-5 text-accent" aria-hidden />
+            <h3 className="font-mono text-xs uppercase tracking-wider text-subtle">
               Toolkit
             </h3>
           </div>
@@ -252,15 +200,15 @@ export default function AboutSkills() {
               (tool) => (
                 <span
                   key={tool}
-                  className="rounded-lg border border-[#1a1a1a] bg-[#111] px-2 py-1 font-mono text-xs text-[#e5e5e5]"
+                  className="rounded-lg border border-card-border bg-surface px-2 py-1 font-mono text-xs text-text-secondary"
                 >
                   {tool}
                 </span>
               )
             )}
           </div>
-        </motion.article>
-      </motion.div>
+        </m.article>
+      </m.div>
     </section>
   );
 }

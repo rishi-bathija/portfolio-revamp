@@ -1,6 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { MotionProvider } from "./components/MotionProvider";
+import { CustomCursor } from "./components/CustomCursor";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,8 +15,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rishi Bhatija - Full Stack Engineer",
-  description: "Building fast, real-world web products that ship.",
+  title: "Rishi Bathija - Full Stack Engineer",
+  description:
+    "Full-stack engineer building performant web apps, scalable APIs, and data-driven platforms with React, Next.js, Node.js, and TypeScript.",
+  openGraph: {
+    title: "Rishi Bathija - Full Stack Engineer",
+    description:
+      "Full-stack engineer building performant web apps, scalable APIs, and data-driven platforms.",
+    type: "website",
+  },
+  robots: { index: true, follow: true },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#050505",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -23,11 +39,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
       >
-        {children}
+        <MotionProvider>
+          <CustomCursor />
+          {children}
+        </MotionProvider>
       </body>
     </html>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { Building2, Briefcase, Laptop } from "lucide-react";
 
 interface ExperienceItem {
@@ -64,23 +64,16 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
+    transition: { staggerChildren: 0.12 },
   },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, x: 40 },
+  hidden: { opacity: 0, x: 32 },
   visible: {
     opacity: 1,
     x: 0,
-    transition: {
-      type: "spring" as const,
-      stiffness: 100,
-      damping: 20,
-      mass: 1,
-    },
+    transition: { type: "spring", stiffness: 80, damping: 18, mass: 0.8 },
   },
 };
 
@@ -99,52 +92,52 @@ const hoverSpring = {
 
 function ExperienceCard({ item }: { item: ExperienceItem }) {
   return (
-    <motion.article
+    <m.article
       variants={cardVariants}
       whileHover={{
-        boxShadow: "0 0 20px rgba(59,130,246,0.1)",
-        borderColor: "rgba(59,130,246,0.3)",
+        boxShadow: "0 0 24px rgba(59,130,246,0.1)",
+        borderColor: "rgba(59,130,246,0.25)",
         transition: hoverSpring,
       }}
-      className="relative rounded-2xl border border-[#1a1a1a] bg-[#0a0a0a] p-8"
+      className="relative rounded-2xl border border-card-border bg-card p-6 md:p-8"
       aria-labelledby={`${item.company.replace(/\s+/g, "-")}-heading`}
     >
       <div className="flex flex-col gap-4">
         {/* Header - grid for crisp alignment */}
         <div className="grid grid-cols-1 items-start gap-2 sm:grid-cols-[1fr_auto] sm:gap-4">
           <div className="flex items-center gap-3">
-            <div className="text-[#3b82f6]" aria-hidden>
+            <div className="text-accent" aria-hidden>
               {item.icon}
             </div>
             <div>
               <h3
                 id={`${item.company.replace(/\s+/g, "-")}-heading`}
-                className="font-sans text-xl font-bold text-white md:text-2xl"
+                className="font-sans text-xl font-bold text-foreground md:text-2xl"
               >
                 {item.company}
               </h3>
-              <p className="font-mono text-sm text-[#3b82f6]">{item.role}</p>
+              <p className="font-mono text-sm text-accent">{item.role}</p>
             </div>
           </div>
           <div className="shrink-0 sm:text-right">
-            <p className="font-mono text-sm text-[#a1a1a1]">{item.dates}</p>
-            <p className="font-mono text-xs text-[#666]">{item.location}</p>
+            <p className="font-mono text-sm text-muted-foreground">{item.dates}</p>
+            <p className="font-mono text-xs text-subtle">{item.location}</p>
           </div>
         </div>
 
         {/* Impact List */}
         <div>
-          <h4 className="mb-2 font-mono text-xs uppercase tracking-wider text-[#666]">
+          <h4 className="mb-2 font-mono text-xs uppercase tracking-wider text-subtle">
             Impact
           </h4>
-          <ul className="space-y-2">
+          <ul className="flex flex-col gap-2">
             {item.impact.map((point, i) => (
               <li
                 key={i}
-                className="flex gap-2 font-sans text-[#e5e5e5] leading-relaxed"
+                className="flex gap-2 font-sans text-text-secondary leading-relaxed"
               >
                 <span
-                  className="mt-0.5 shrink-0 font-mono text-[#3b82f6]"
+                  className="mt-0.5 shrink-0 font-mono text-accent"
                   aria-hidden
                 >
                   →
@@ -160,7 +153,7 @@ function ExperienceCard({ item }: { item: ExperienceItem }) {
           {item.tech.map((t) => (
             <span
               key={t}
-              className="rounded-md border border-white/5 bg-[#111] px-2 py-1 font-mono text-[10px] text-[#a1a1a1]"
+              className="rounded-md border border-white/5 bg-surface px-2 py-1 font-mono text-[10px] text-muted-foreground"
             >
               {t}
             </span>
@@ -172,14 +165,14 @@ function ExperienceCard({ item }: { item: ExperienceItem }) {
           {item.badges.map((badge) => (
             <span
               key={badge}
-              className="rounded-md border border-white/5 bg-[#111] px-2.5 py-1 font-mono text-[10px] text-[#a1a1a1]"
+              className="rounded-md border border-white/5 bg-surface px-2.5 py-1 font-mono text-[10px] text-muted-foreground"
             >
               {badge}
             </span>
           ))}
         </div>
       </div>
-    </motion.article>
+    </m.article>
   );
 }
 
@@ -190,31 +183,31 @@ export default function Experience() {
   return (
     <section
       ref={containerRef}
-      className="px-6 py-14 md:px-12 md:py-16 lg:px-24"
+      className="px-6 py-20 md:px-12 lg:px-24"
       aria-labelledby="experience-heading"
     >
       <h2
         id="experience-heading"
-        className="mb-16 font-mono text-sm uppercase tracking-wider text-muted-foreground"
+        className="mb-12 font-mono text-sm uppercase tracking-wider text-muted-foreground"
       >
         Work Experience
       </h2>
 
       <div className="relative">
-        {/* Glow Timeline - 1px line with gradient, connecting cards */}
+        {/* Glow Timeline */}
         <div
-          className="absolute left-4 top-0 h-full w-px md:left-0"
+          className="absolute left-4 top-0 hidden h-full w-px md:left-0 md:block"
           aria-hidden
         >
-          <motion.div
-            className="h-full w-px bg-[#1a1a1a]"
+          <m.div
+            className="h-full w-px bg-card-border"
             initial={{ scaleY: 0 }}
             animate={{ scaleY: isInView ? 1 : 0 }}
             transition={springTransition}
             style={{ transformOrigin: "top" }}
           />
-          <motion.div
-            className="absolute inset-0 h-full w-px bg-gradient-to-b from-blue-500/50 to-transparent"
+          <m.div
+            className="absolute inset-0 h-full w-px bg-gradient-to-b from-accent/50 to-transparent"
             initial={{ scaleY: 0 }}
             animate={{ scaleY: isInView ? 1 : 0 }}
             transition={springTransition}
@@ -222,17 +215,17 @@ export default function Experience() {
           />
         </div>
 
-        {/* Cards - stacked vertically, offset from line */}
-        <motion.div
+        {/* Cards */}
+        <m.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="relative flex flex-col gap-8 pl-8 md:pl-12 lg:pl-16"
+          className="relative flex flex-col gap-6 md:gap-8 md:pl-12 lg:pl-16"
         >
           {EXPERIENCES.map((item) => (
             <ExperienceCard key={item.company} item={item} />
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

@@ -1,14 +1,14 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { motion } from "framer-motion";
-import { Mail, Linkedin, Github, Twitter, Copy, Check } from "lucide-react";
+import { m } from "framer-motion";
+import { Mail, Linkedin, Github, Twitter, Copy } from "lucide-react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1 },
+    transition: { staggerChildren: 0.08 },
   },
 };
 
@@ -17,19 +17,8 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      type: "spring" as const,
-      stiffness: 100,
-      damping: 20,
-      mass: 1,
-    },
+    transition: { type: "spring", stiffness: 80, damping: 18, mass: 0.8 },
   },
-};
-
-const hoverSpring = {
-  type: "spring" as const,
-  stiffness: 300,
-  damping: 25,
 };
 
 const EMAIL = "bathijarishi@email.com";
@@ -56,19 +45,18 @@ function ActionCard({
   isCopyable?: boolean;
   copied?: boolean;
 }) {
-  const content = (
-    <motion.div
+  return (
+    <m.div
       variants={itemVariants}
       whileHover={{
-        scale: 1.02,
-        boxShadow: "0 0 20px rgba(59,130,246,0.15)",
-        transition: hoverSpring,
+        boxShadow: "0 0 20px rgba(59,130,246,0.12)",
+        borderColor: "rgba(59,130,246,0.2)",
       }}
-      className="flex flex-col gap-2 rounded-xl border border-[#1a1a1a] bg-[#0a0a0a] p-4 transition-shadow"
+      className="flex flex-col gap-2 rounded-xl border border-card-border bg-card p-4 transition-shadow"
     >
       <div className="flex items-center gap-2">
-        <Icon className="h-4 w-4 shrink-0 text-[#3b82f6]" aria-hidden />
-        <span className="font-mono text-[10px] uppercase tracking-wider text-[#666]">
+        <Icon className="h-4 w-4 shrink-0 text-accent" aria-hidden />
+        <span className="font-mono text-[10px] uppercase tracking-wider text-subtle">
           {label}
         </span>
       </div>
@@ -76,15 +64,16 @@ function ActionCard({
         <button
           type="button"
           onClick={onClick}
-          className="group flex items-center gap-2 text-left font-mono text-sm text-[#e5e5e5] transition-colors hover:text-[#fafafa] focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:ring-offset-0 focus:ring-offset-[#0a0a0a]"
+          className="group flex items-center gap-2 text-left font-mono text-sm text-text-secondary transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
           aria-label={copied ? "Email copied" : "Copy email address"}
+          data-cursor-hover
         >
           {copied ? (
             <>
-              <span className="font-mono text-xs text-[#22c55e]">
+              <span className="font-mono text-xs text-accent-green">
                 COPIED_TO_CLIPBOARD
               </span>
-              <span className="rounded bg-[#22c55e]/20 px-1.5 py-0.5 font-mono text-[10px] text-[#22c55e]">
+              <span className="rounded bg-accent-green/20 px-1.5 py-0.5 font-mono text-[10px] text-accent-green">
                 [OK]
               </span>
             </>
@@ -100,19 +89,18 @@ function ActionCard({
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="font-mono text-sm text-[#e5e5e5] transition-colors hover:text-[#fafafa] focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:ring-offset-0 focus:ring-offset-[#0a0a0a]"
+          className="font-mono text-sm text-text-secondary transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
           aria-label={`Open ${label}`}
+          data-cursor-hover
         >
           {value}
         </a>
       )}
       {subtext && (
-        <span className="font-mono text-[10px] text-[#666]">{subtext}</span>
+        <span className="font-mono text-[10px] text-subtle">{subtext}</span>
       )}
-    </motion.div>
+    </m.div>
   );
-
-  return content;
 }
 
 export default function Footer() {
@@ -128,10 +116,10 @@ export default function Footer() {
 
   return (
     <footer
-      className="border-t border-[#1a1a1a] bg-[#050505] px-6 py-12 md:px-12 md:py-14 lg:px-24"
-      aria-label="Command Center"
+      className="border-t border-card-border bg-background px-6 py-16 md:px-12 lg:px-24"
+      aria-label="Contact"
     >
-      <motion.div
+      <m.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -139,15 +127,17 @@ export default function Footer() {
         className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_auto] lg:gap-16"
       >
         {/* Left: CTA */}
-        <motion.div
+        <m.div
           variants={itemVariants}
           className="flex flex-col justify-center"
         >
-          <h2 className="font-sans text-3xl font-bold tracking-tighter text-[#fafafa] md:text-4xl">
+          <h2 className="text-balance font-sans text-3xl font-bold tracking-tight text-foreground md:text-4xl">
             Open to building impactful products and solving real engineering problems.
-            <p>Let&apos;s connect!</p>
           </h2>
-        </motion.div>
+          <p className="mt-3 font-mono text-sm text-muted-foreground">
+            {"Let's connect."}
+          </p>
+        </m.div>
 
         {/* Right: 2x2 Action Cards */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -177,15 +167,14 @@ export default function Footer() {
             icon={Twitter}
             label="X / Twitter"
             value="Follow"
-            // subtext="Building in Public"
             href={TWITTER_URL}
           />
         </div>
 
         {/* System Status */}
-        <motion.div
+        <m.div
           variants={itemVariants}
-          className="col-span-full mt-12 border-t border-[#1a1a1a] pt-6"
+          className="col-span-full mt-8 border-t border-card-border pt-6"
         >
           <p
             className="font-mono text-[10px] text-muted-foreground"
@@ -193,8 +182,8 @@ export default function Footer() {
           >
             DEPLOYMENT_V2.0.26 // LATENCY: 24MS // BUILT_WITH_NEXT_JS_FRAMER
           </p>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </footer>
   );
 }

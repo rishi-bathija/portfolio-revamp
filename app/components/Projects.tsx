@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Github, ExternalLink, Copy } from "lucide-react";
 
 interface ProjectItem {
@@ -511,21 +511,16 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1 },
+    transition: { staggerChildren: 0.12 },
   },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      type: "spring" as const,
-      stiffness: 100,
-      damping: 20,
-      mass: 1,
-    },
+    transition: { type: "spring", stiffness: 80, damping: 18, mass: 0.8 },
   },
 };
 
@@ -562,16 +557,16 @@ function ProjectCard({ project }: { project: ProjectItem }) {
   }, [project.codeRaw]);
 
   return (
-    <motion.article
+    <m.article
       variants={cardVariants}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       whileHover={{
-        scale: 1.02,
         boxShadow: "0 0 30px rgba(59,130,246,0.1)",
+        borderColor: "rgba(59,130,246,0.2)",
         transition: hoverSpring,
       }}
-      className="group overflow-hidden rounded-2xl border border-[#1a1a1a] bg-[#0a0a0a]"
+      className="group overflow-hidden rounded-2xl border border-card-border bg-card"
       aria-labelledby={`project-${project.name.replace(/\s+/g, "-")}`}
     >
       <div className="flex flex-col p-6">
@@ -579,7 +574,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
         <div className="mb-3 flex items-start justify-between gap-4">
           <h3
             id={`project-${project.name.replace(/\s+/g, "-")}`}
-            className="font-sans text-xl font-bold text-white md:text-2xl"
+            className="font-sans text-xl font-bold text-foreground md:text-2xl"
           >
             {project.name}
           </h3>
@@ -587,8 +582,9 @@ function ProjectCard({ project }: { project: ProjectItem }) {
             {project.github && (
               <a
                 href={project.github}
-                className="rounded-lg p-2 text-[#a1a1a1] transition-colors hover:text-[#fafafa] focus:outline-none focus:ring-2 focus:ring-[#3b82f6]"
+                className="rounded-lg p-2 text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
                 aria-label={`View ${project.name} on GitHub`}
+                data-cursor-hover
               >
                 <Github className="h-5 w-5" />
               </a>
@@ -596,7 +592,8 @@ function ProjectCard({ project }: { project: ProjectItem }) {
             {project.live && (
               <a
                 href={project.live}
-                className="rounded-lg p-2 text-[#a1a1a1] transition-colors hover:text-[#fafafa] focus:outline-none focus:ring-2 focus:ring-[#3b82f6]"
+                className="rounded-lg p-2 text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+                data-cursor-hover
                 aria-label={`View ${project.name} live`}
               >
                 <ExternalLink className="h-5 w-5" />
@@ -606,12 +603,12 @@ function ProjectCard({ project }: { project: ProjectItem }) {
         </div>
 
         {/* Metric Strip */}
-        <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-[#666]">
+        <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-subtle">
           {project.metricStrip}
         </p>
 
         {/* Description */}
-        <p className="mb-4 font-sans text-sm leading-relaxed text-[#e5e5e5]">
+        <p className="mb-4 font-sans text-sm leading-relaxed text-text-secondary">
           {project.description}
         </p>
 
@@ -620,7 +617,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
           {project.tech.map((t) => (
             <span
               key={t}
-              className="rounded-md border border-white/5 bg-[#111] px-2 py-1 font-mono text-[10px] text-[#a1a1a1]"
+              className="rounded-md border border-white/5 bg-surface px-2 py-1 font-mono text-[10px] text-muted-foreground"
             >
               {t}
             </span>
@@ -629,32 +626,33 @@ function ProjectCard({ project }: { project: ProjectItem }) {
       </div>
 
       {/* Code Preview - VS Code style window */}
-      <motion.div
-        className="relative flex min-h-[280px] flex-col overflow-hidden border-t border-[#1a1a1a] bg-[#050505]"
+      <m.div
+        className="relative flex min-h-[280px] flex-col overflow-hidden border-t border-card-border bg-background"
         initial={false}
         style={{
           boxShadow: `inset 0 0 0 0.5px ${project.codeAccent}20`,
         }}
       >
         {/* macOS window dots + Copy button */}
-        <div className="flex shrink-0 items-center justify-between border-b border-[#1a1a1a] px-3 py-2">
+        <div className="flex shrink-0 items-center justify-between border-b border-card-border px-3 py-2">
           <div className="flex items-center gap-1.5">
             <span className="h-2 w-2 rounded-full bg-[#ff5f57]" aria-hidden />
             <span className="h-2 w-2 rounded-full bg-[#febc2e]" aria-hidden />
             <span className="h-2 w-2 rounded-full bg-[#28c840]" aria-hidden />
           </div>
-          <motion.button
+          <m.button
             initial={{ opacity: 0 }}
             animate={{ opacity: isHovered ? 1 : 0 }}
             transition={{ duration: 0.15 }}
             onClick={handleCopy}
-            className={`absolute right-3 top-2 flex items-center gap-1 rounded px-2 py-1 font-mono text-[10px] text-[#a1a1a1] transition-colors hover:text-[#fafafa] focus:outline-none focus:ring-2 focus:ring-[#3b82f6] ${!isHovered ? "pointer-events-none" : ""
+            className={`absolute right-3 top-2 flex items-center gap-1 rounded px-2 py-1 font-mono text-[10px] text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-accent ${!isHovered ? "pointer-events-none" : ""
               }`}
+            data-cursor-hover
             aria-label="Copy code"
           >
             <Copy className="h-3.5 w-3.5" />
             {copied ? "Copied" : "Copy"}
-          </motion.button>
+          </m.button>
         </div>
         {/* Code area: scrollable, fade only when overflowing */}
         <div className="relative min-h-0 flex-1">
@@ -669,14 +667,14 @@ function ProjectCard({ project }: { project: ProjectItem }) {
               className="pointer-events-none absolute bottom-0 left-0 right-0 h-5"
               style={{
                 background:
-                  "linear-gradient(to top, #050505 0%, transparent 100%)",
+                  "linear-gradient(to top, var(--background) 0%, transparent 100%)",
               }}
               aria-hidden
             />
           )}
         </div>
-      </motion.div>
-    </motion.article>
+      </m.div>
+    </m.article>
   );
 }
 
@@ -684,27 +682,27 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="px-6 py-14 md:px-12 md:py-16 lg:px-24"
+      className="px-6 py-20 md:px-12 lg:px-24"
       aria-labelledby="projects-heading"
     >
       <h2
         id="projects-heading"
-        className="mb-16 font-mono text-sm uppercase tracking-wider text-muted-foreground"
+        className="mb-12 font-mono text-sm uppercase tracking-wider text-muted-foreground"
       >
         Engineered Artifacts
       </h2>
 
-      <motion.div
+      <m.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="grid grid-cols-1 gap-8 lg:grid-cols-2"
+        viewport={{ once: true, amount: 0.1 }}
+        className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8"
       >
         {PROJECTS.map((project) => (
           <ProjectCard key={project.name} project={project} />
         ))}
-      </motion.div>
+      </m.div>
     </section>
   );
 }
