@@ -1,0 +1,26 @@
+# 2026 Developer Portfolio: Anti-Slop & High-Impact Rules
+
+## 1. Design System & Aesthetics
+- **Core Theme**: Deep Obsidian (#050505) background. No generic radial gradients or "space" backgrounds.
+- **Typography**: 
+  - Headlines: Use 'Geist Sans' or 'Cal Sans' with `tracking-tighter` and `font-bold`.
+  - Data/Stats/Code: Use 'Geist Mono' for all numbers, metrics, and technical labels.
+- **Bento Logic**: Every section must follow a strict grid. Cards use `bg-[#0a0a0a]`, `border-[#1a1a1a]`, and `rounded-2xl`. 
+- **Accents**: Use Electric Blue (#3b82f6) sparingly for active states and primary CTAs. 1px borders should use `white/10` or `white/5`.
+
+## 2. Motion & Interaction (Framer Motion)
+- **Physics**: NEVER use `duration`. Always use spring physics: `type: "spring", stiffness: 100, damping: 20, mass: 1`.
+- **Entrance**: Use `initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}`.
+- **Viewport**: Always include `viewport={{ once: true }}` to prevent repetitive animations on scroll.
+- **Stagger**: All lists (skills, project cards) must use `staggerChildren: 0.1`.
+
+## 3. Implementation Guardrails (The "Anti-AI" Filter)
+- **Copywriting**: Eliminate "Passionate," "Innovative," and "Solution-oriented." 
+- **Proof-of-Work**: Rewrite all text to be "Metric-First." (e.g., "Optimized LCP by 40%" instead of "Made websites faster").
+- **Component Choice**: Prefer manual Framer Motion implementations over heavy UI libraries. If using Shadcn/ui, strip all default padding/borders to match the 2026 Bento style.
+- **Interactivity**: Add a "human touch"—custom cursors, magnet effects on buttons, or draggable elements for skills.
+
+## 4. Code Standards
+- **Next.js**: Use App Router (Next.js 14/15) with Server Components by default.
+- **Strict TS**: No `any`. Use interfaces for all component props.
+- **Accessibility**: All interactive elements must have `aria-label` and `focus-ring` states.
