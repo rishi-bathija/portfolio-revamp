@@ -1,9 +1,9 @@
 "use client";
 
-import { m } from "framer-motion";
+import { m, type Variants } from "framer-motion";
 import TechPhysicsOrbit from "./TechPhysicsOrbit";
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -11,7 +11,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,

@@ -1,6 +1,6 @@
 "use client";
 
-import { m } from "framer-motion";
+import { m, type Variants } from "framer-motion";
 import {
   Code2,
   Server,
@@ -37,7 +37,7 @@ function MicroChip({ label }: { label: string }) {
   );
 }
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -45,12 +45,17 @@ const containerVariants = {
   },
 };
 
-const cardVariants = {
+const cardVariants: Variants = {
   hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { type: "spring", stiffness: 80, damping: 18, mass: 0.8 },
+    transition: {
+      type: "spring",
+      stiffness: 80,
+      damping: 18,
+      mass: 0.8,
+    },
   },
 };
 

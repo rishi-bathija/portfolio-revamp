@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { m, useInView } from "framer-motion";
+import { m, useInView, type Variants } from "framer-motion";
 import { Building2, Briefcase, Laptop } from "lucide-react";
 
 interface ExperienceItem {
@@ -60,7 +60,7 @@ const EXPERIENCES: ExperienceItem[] = [
   },
 ];
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -68,7 +68,7 @@ const containerVariants = {
   },
 };
 
-const cardVariants = {
+const cardVariants: Variants = {
   hidden: { opacity: 0, x: 32 },
   visible: {
     opacity: 1,

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
-import { m } from "framer-motion";
+import { m, type Variants } from "framer-motion";
 import { Github, ExternalLink, Copy } from "lucide-react";
 
 interface ProjectItem {
@@ -507,7 +507,7 @@ return res.status(200).json({ success: true, message: "Payment verified, enrollm
   },
 ];
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -515,7 +515,7 @@ const containerVariants = {
   },
 };
 
-const cardVariants = {
+const cardVariants: Variants = {
   hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,

@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { m } from "framer-motion";
+import { m, type Variants } from "framer-motion";
 import { Mail, Linkedin, Github, Twitter, Copy } from "lucide-react";
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -12,7 +12,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
