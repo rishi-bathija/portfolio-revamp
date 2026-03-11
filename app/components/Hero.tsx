@@ -93,18 +93,19 @@ export default function Hero() {
             <m.div variants={itemVariants} className="flex flex-wrap gap-4">
               <a
                 href="#projects"
-                className="rounded-2xl bg-accent px-8 py-3.5 font-mono text-sm font-medium text-foreground transition-shadow hover:shadow-[0_0_24px_rgba(59,130,246,0.5)]"
+                className="min-w-[176px] rounded-2xl bg-accent px-8 py-3.5 text-center font-mono text-sm font-medium text-foreground transition-shadow hover:shadow-[0_0_24px_rgba(59,130,246,0.5)]"
                 data-cursor-hover
               >
                 Proof of Work
               </a>
               <a
-                href="/rishi-bathija-resume.pdf"
-                download="Rishi-Bathija-Resume.pdf"
-                className="rounded-2xl border border-card-border bg-card px-8 py-3.5 font-mono text-sm font-medium text-text-secondary transition-all hover:border-white/10 hover:text-foreground hover:shadow-[0_0_24px_rgba(59,130,246,0.1)]"
+                href="https://drive.google.com/file/d/11XQVU8PPfQk8_ufhY4QLLitCjL3h72Q7/view?usp=drive_link"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="min-w-[176px] rounded-2xl border border-white/10 bg-card/40 px-8 py-3.5 text-center font-mono text-sm font-medium text-text-secondary backdrop-blur-sm transition-all hover:border-accent/40 hover:bg-card/60 hover:text-foreground hover:shadow-[0_0_18px_rgba(59,130,246,0.12)]"
                 data-cursor-hover
               >
-                Download CV
+                View CV
               </a>
             </m.div>
           </div>
