@@ -66,17 +66,14 @@ export default function Hero() {
               variants={itemVariants}
               className="text-balance font-sans text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl"
             >
-              Building performant web apps and data-driven platforms.
+              Building scalable software and solving real engineering problems.
             </m.h1>
 
             <m.p
               variants={itemVariants}
               className="max-w-xl font-mono text-sm leading-relaxed text-text-tertiary"
             >
-              Hi, I&apos;m Rishi. I&apos;m a Full-stack engineer building scalable webapps and data-driven platforms.
-              Shipped production features at Intelivita, dashboards and admin panels at Infoware,
-              and full-stack systems end-to-end using React, Next.js, Node.js, and TypeScript.
-              Focused on performance, clean architecture, and real-world shipping.
+              Hi, I&apos;m Rishi, a full-stack software engineer working on production platforms and backend-driven applications. At Newsreach, I contributed to a multi-domain management platform supporting up to 200 domains, legacy-system modernization, and Elasticsearch-backed retrieval. I also build full-stack and AI-assisted products using Next.js, Node.js, TypeScript, and databases.
             </m.p>
 
             {/* Metric Bar */}
@@ -86,7 +83,7 @@ export default function Hero() {
             >
               <MetricItem value="10+" label="Production Apps" />
               <MetricItem value="200+" label="DSA Solves" />
-              <MetricItem value="1+" label="Years Experience" />
+              <MetricItem value="Up to 200" label="Domains Supported" />
             </m.div>
 
             {/* CTAs */}
@@ -96,10 +93,10 @@ export default function Hero() {
                 className="min-w-[176px] rounded-2xl bg-accent px-8 py-3.5 text-center font-mono text-sm font-medium text-foreground transition-shadow hover:shadow-[0_0_24px_rgba(59,130,246,0.5)]"
                 data-cursor-hover
               >
-                Proof of Work
+                Explore Projects
               </a>
               <a
-                href="https://drive.google.com/file/d/11XQVU8PPfQk8_ufhY4QLLitCjL3h72Q7/view?usp=drive_link"
+                href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="min-w-[176px] rounded-2xl border border-white/10 bg-card/40 px-8 py-3.5 text-center font-mono text-sm font-medium text-text-secondary backdrop-blur-sm transition-all hover:border-accent/40 hover:bg-card/60 hover:text-foreground hover:shadow-[0_0_18px_rgba(59,130,246,0.12)]"
