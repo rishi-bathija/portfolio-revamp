@@ -16,6 +16,31 @@ interface ExperienceItem {
 }
 
 const EXPERIENCES: ExperienceItem[] = [
+{
+  company: "Newsreach",
+  role: "Full-Stack Engineer",
+  dates: "April 2026 — Present",
+  location: "Ahmedabad, India",
+  icon: <Building2 className="h-5 w-5" />,
+  impact: [
+    "Built a WordPress Multisite-equivalent platform supporting up to 200 domains, with content, layouts, configurations, and routing centrally managed through a single Next.js admin application.",
+    "Contributed across multiple modules in migrating Newsreach's core platform from Laravel to Next.js and Node.js, modernizing legacy workflows and improving maintainability, performance, and scalability.",
+    "Integrated Elasticsearch for fast and efficient search and data retrieval across application modules.",
+    "Translated requirements from Sales, Operations, and Accounts teams into scalable product modules by understanding end-to-end workflows and delivering solutions aligned with business needs."
+  ],
+  badges: [
+    "200+ Domains",
+    "Platform Modernization",
+    "Cross-Functional Ownership"
+  ],
+  tech: [
+    "Next.js",
+    "Node.js",
+    "Elasticsearch",
+    "JavaScript",
+    "TypeScript"
+  ],
+},
   {
     company: "Intelivita Pvt. Ltd.",
     role: "Associate Software Engineer",
