@@ -21,7 +21,7 @@ const itemVariants: Variants = {
   },
 };
 
-const EMAIL = "bathijarishi@email.com";
+const EMAIL = "bathijarishi@gmail.com";
 const LINKEDIN_URL = "https://www.linkedin.com/in/rishi-bathija-969982279/";
 const GITHUB_URL = "https://github.com/rishi-bathija";
 const TWITTER_URL = "https://x.com/bathija_rishi";
@@ -180,7 +180,7 @@ export default function Footer() {
             className="font-mono text-[10px] text-muted-foreground"
             aria-hidden
           >
-            DEPLOYMENT_V2.0.26 // LATENCY: 24MS // BUILT_WITH_NEXT_JS_FRAMER
+            BUILT_WITH_NEXT_JS // REACT // TYPESCRIPT
           </p>
         </m.div>
       </m.div>
