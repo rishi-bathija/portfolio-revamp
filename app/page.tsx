@@ -11,9 +11,9 @@ export default function Home() {
     <main className="overflow-x-hidden">
       <Hero />
       <SectionDivider />
-      <AboutSkills />
-      <SectionDivider />
       <Experience />
+      <SectionDivider />
+      <AboutSkills />
       <SectionDivider />
       <Projects />
       <SectionDivider />
