@@ -531,7 +531,6 @@ const hoverSpring = {
 };
 
 function ProjectCard({ project }: { project: ProjectItem }) {
-  const [isHovered, setIsHovered] = useState(false);
   const [copied, setCopied] = useState(false);
   const codeScrollRef = useRef<HTMLDivElement>(null);
   const [hasOverflow, setHasOverflow] = useState(false);
@@ -550,17 +549,19 @@ function ProjectCard({ project }: { project: ProjectItem }) {
 
   const handleCopy = useCallback(async () => {
     if (typeof window !== "undefined" && navigator.clipboard) {
-      await navigator.clipboard.writeText(project.codeRaw);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
+      try {
+        await navigator.clipboard.writeText(project.codeRaw);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1500);
+      } catch {
+        setCopied(false);
+      }
     }
   }, [project.codeRaw]);
 
   return (
     <m.article
       variants={cardVariants}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
       whileHover={{
         boxShadow: "0 0 30px rgba(59,130,246,0.1)",
         borderColor: "rgba(59,130,246,0.2)",
@@ -645,12 +646,8 @@ function ProjectCard({ project }: { project: ProjectItem }) {
             <span className="h-2 w-2 rounded-full bg-[#28c840]" aria-hidden />
           </div>
           <m.button
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.15 }}
             onClick={handleCopy}
-            className={`absolute right-3 top-2 flex items-center gap-1 rounded px-2 py-1 font-mono text-[10px] text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-accent ${!isHovered ? "pointer-events-none" : ""
-              }`}
+            className="absolute right-3 top-2 flex items-center gap-1 rounded px-2 py-1 font-mono text-[10px] text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
             data-cursor-hover
             aria-label="Copy code"
           >
@@ -693,7 +690,7 @@ export default function Projects() {
         id="projects-heading"
         className="mb-12 font-mono text-sm uppercase tracking-wider text-muted-foreground"
       >
-        Engineered Artifacts
+        Selected Projects
       </h2>
 
       <m.div
