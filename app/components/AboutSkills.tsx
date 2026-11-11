@@ -18,7 +18,11 @@ const STACK_ITEMS = [
   "Redux Toolkit",
   "Tailwind CSS",
   "JavaScript",
+  "Python (intermediate)",
+  "C++",
 ];
+
+const AI_TOOLS = ["Claude Code", "GitHub Copilot", "Cursor", "Gemini", "Ollama"];
 
 const ENGINE_ITEMS = [
   "MongoDB",
@@ -27,6 +31,7 @@ const ENGINE_ITEMS = [
   "REST APIs",
   "JWT Auth",
   "Firebase",
+  "Elasticsearch",
 ];
 
 function MicroChip({ label }: { label: string }) {
@@ -107,7 +112,7 @@ export default function AboutSkills() {
             </h3>
           </div>
           <p className="font-sans leading-relaxed text-text-secondary">
-            Full-stack engineer experienced in building scalable features across SaaS platforms, industry projects, dashboards, and admin-panels used by real users. Worked closely with teams to deliver features end-to-end -- from UI implementation and API to deployment. Always focused on writing maintainable code and improving user experience.
+            Full-stack software engineer working on production SaaS applications, multi-domain content systems, backend APIs, and modernizing legacy workflows. I collaborate across engineering and business teams to translate requirements into maintainable features, and use AI development tools with hands-on review of generated output.
           </p>
         </m.article>
 
@@ -201,7 +206,7 @@ export default function AboutSkills() {
             </h3>
           </div>
           <div className="flex flex-wrap gap-2">
-            {["Git", "Docker", "AWS EC2", "AWS S3", "GitHub Actions", "Vercel"].map(
+            {["Git", "Docker", "Linux (working knowledge)", "AWS EC2", "AWS S3", "GitHub Actions", "Vercel"].map(
               (tool) => (
                 <span
                   key={tool}
@@ -212,6 +217,17 @@ export default function AboutSkills() {
               )
             )}
           </div>
+        </m.article>
+
+        {/* AI-assisted development */}
+        <m.article variants={cardVariants} className="relative flex flex-col gap-4 overflow-hidden rounded-2xl border border-card-border bg-card p-6">
+          <CardTopLine />
+          <div className="flex items-center gap-2">
+            <Cpu className="h-5 w-5 text-accent" aria-hidden />
+            <h3 className="font-mono text-xs uppercase tracking-wider text-subtle">AI-assisted development</h3>
+          </div>
+          <p className="font-sans text-sm leading-relaxed text-text-secondary">Using AI tools for coding, debugging, codebase exploration, and documentation, while reviewing and validating generated output.</p>
+          <div className="flex flex-wrap gap-2">{AI_TOOLS.map((tool) => <MicroChip key={tool} label={tool} />)}</div>
         </m.article>
       </m.div>
     </section>

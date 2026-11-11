@@ -19,7 +19,7 @@ const EXPERIENCES: ExperienceItem[] = [
 {
   company: "Newsreach",
   role: "Full-Stack Engineer",
-  dates: "April 2026 — Present",
+  dates: "Jan 2026 — Present",
   location: "Ahmedabad, India",
   icon: <Building2 className="h-5 w-5" />,
   impact: [
@@ -29,13 +29,14 @@ const EXPERIENCES: ExperienceItem[] = [
     "Translated requirements from Sales, Operations, and Accounts teams into scalable product modules by understanding end-to-end workflows and delivering solutions aligned with business needs."
   ],
   badges: [
-    "200+ Domains",
+    "Up to 200 Domains",
     "Platform Modernization",
     "Cross-Functional Ownership"
   ],
   tech: [
     "Next.js",
     "Node.js",
+    "Laravel",
     "Elasticsearch",
     "JavaScript",
     "TypeScript"
@@ -48,7 +49,7 @@ const EXPERIENCES: ExperienceItem[] = [
     location: "Ahmedabad, India",
     icon: <Building2 className="h-5 w-5" />,
     impact: [
-      "Contributed to multiple production SaaS platforms end-to-end using React, Next.js, Node.js, Typescript",
+      "Contributed to multiple production SaaS platforms end-to-end using React, Next.js, Node.js, TypeScript",
       "Implemented REST APIs and integrated frontend workflows for reliable data flow across services.",
       "Collaborated with cross-functional teams to deliver features following clean code and modular design.",
     ],

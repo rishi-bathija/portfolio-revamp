@@ -15,15 +15,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rishi Bathija - Full Stack Engineer",
+  metadataBase: new URL("https://rishi-works.vercel.app"),
+  title: "Rishi Bathija | Software Engineer",
   description:
     "Full-stack engineer building performant web apps, scalable APIs, and data-driven platforms with React, Next.js, Node.js, and TypeScript.",
   openGraph: {
-    title: "Rishi Bathija - Full Stack Engineer",
+    title: "Rishi Bathija | Software Engineer",
     description:
       "Full-stack engineer building performant web apps, scalable APIs, and data-driven platforms.",
+    url: "https://rishi-works.vercel.app",
+    siteName: "Rishi Bathija Portfolio",
     type: "website",
   },
+  twitter: { card: "summary", title: "Rishi Bathija | Software Engineer", description: "Full-stack engineer building production applications and scalable platforms." },
   robots: { index: true, follow: true },
 };
 
