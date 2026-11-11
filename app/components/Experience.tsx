@@ -36,6 +36,7 @@ const EXPERIENCES: ExperienceItem[] = [
   tech: [
     "Next.js",
     "Node.js",
+    "Laravel",
     "Elasticsearch",
     "JavaScript",
     "TypeScript"
